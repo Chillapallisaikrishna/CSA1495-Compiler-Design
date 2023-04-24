@@ -1,0 +1,29 @@
+%{
+#include<stdio.h>
+%}
+%%
+((0[1-9])|([1-2][0-9])|(3[0-1]))\/((0[1-9])|(1[0-2]))\/([01-19][0-9]{2}|2[0-9]{3}) {
+    int day = atoi(yytext);
+    int month = atoi(yytext + 3);
+    if (month == 2) {
+        if (day > 29) {
+            printf("\n%s is Invalid DoB",yytext);
+        } else {
+            printf("\n%s is a Valid DoB",yytext);
+        }
+    } else {
+        printf("\n%s is a Valid DoB",yytext);
+    }
+}
+.* {printf("\n%s is Invalid DoB",yytext);}
+%%
+int yywrap()
+{
+return 1;
+}
+int main()
+{
+printf("Enter the date for Checking DoB Validation");
+yylex();
+return 0;
+}
