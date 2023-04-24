@@ -1,0 +1,13 @@
+%{
+#include<stdio.h>
+%}
+%%
+[http|https]+"://"[a-z]+".com"|".in" {printf("\n%s is a url",yytext);}
+.+ {printf("\n%s is not a url",yytext);}
+%%
+
+int yywrap(){}
+int main()
+{
+while(yylex());
+}
