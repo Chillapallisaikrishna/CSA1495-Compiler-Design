@@ -1,0 +1,22 @@
+%{ 
+#include <stdio.h>
+int n = 0 ;  
+%} 
+%% 
+"while"|"if"|"else"|"int"|"float"|"main"  {n++;printf("\t keywords : %s", yytext);}   
+[a-zA-Z_][a-zA-Z0-9_]* {n++;printf("\t identifier : %s", yytext);} 
+"<="|"=="|"="|"++"|"-"|"*"|"+" {n++;printf("\t operator : %s", yytext);}
+[(){}|, ;]    {n++;printf("\t separator : %s", yytext);} 
+[0-9]*"."[0-9]+ {n++;printf("\t float : %s", yytext);}  
+[0-9]+ {n++;printf("\t integer : %s", yytext);}                        
+.    ;
+%% 
+int yywrap(){
+return 1;
+}
+int main() 
+{ 
+printf("enter the string:\n");
+yylex();
+printf("\n total no. of token = %d\n", n);
+}
