@@ -1,0 +1,15 @@
+%{
+#include<stdio.h>
+int ln=0;
+%}
+%%
+.* {ln++; fprintf(yyout,"\n%d:%s",ln,yytext);}
+%%
+int yywrap(){}
+int main()
+{
+yyin=fopen("sample2.txt","r");
+yyout=fopen("out.txt","w");
+yylex();
+return 0;
+}
